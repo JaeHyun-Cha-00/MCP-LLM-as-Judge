@@ -6,7 +6,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 
-mcp = FastMCP(name="Story Evaluator")
+mcp = FastMCP(name="MCP-LLM Judge")
 client = WolverineClient()
 evaluator = StoryEvaluator(client)
 

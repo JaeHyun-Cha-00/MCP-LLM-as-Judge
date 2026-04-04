@@ -1,5 +1,3 @@
-"""Client wrapper for communicating with the Wolverine (vLLM) OpenAI-compatible API."""
-
 import sys
 from openai import OpenAI
 from config import WOLVERINE_SETTINGS

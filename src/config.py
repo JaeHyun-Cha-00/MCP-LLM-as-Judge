@@ -1,5 +1,3 @@
-"""Configuration for the MCP story evaluation server."""
-
 from dataclasses import dataclass
 
 @dataclass(frozen=True)
@@ -16,6 +14,6 @@ class WolverineSettings:
     # Qwen/Qwen3-4B-Instruct-2507
     # Qwen/Qwen2.5-7B-Instruct
 
-    temperature: float = 0.7
+    temperature: float = 0.0
 
 WOLVERINE_SETTINGS = WolverineSettings()

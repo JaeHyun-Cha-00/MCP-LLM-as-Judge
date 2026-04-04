@@ -70,7 +70,7 @@ class EvaluationResult:
             "score": self.score,
         }
     
-##### Story Evaluator (Main) ########
+##### MCP-LLM Judge (Main) ########
 class StoryEvaluator:
     """Evaluate stories for multiple literary categories."""
 
