@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 440" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13">
+  <rect width="420" height="440" fill="#fafafa"/>
+
+  <!-- Downward arrow: vertical stem + triangle tip at bottom (tip points down) -->
+  <text x="210" y="22" text-anchor="middle" font-weight="600" fill="#0f172a">User Query</text>
+  <line x1="210" y1="28" x2="210" y2="44" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="210,52 205,44 215,44" fill="#475569"/>
+
+  <rect x="115" y="56" width="190" height="44" rx="10" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="210" y="83" text-anchor="middle" font-weight="600" fill="#1f2937">Claude</text>
+
+  <line x1="210" y1="100" x2="210" y2="110" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="210,118 205,110 215,110" fill="#475569"/>
+
+  <rect x="55" y="118" width="310" height="118" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="210" y="140" text-anchor="middle" font-weight="600" fill="#334155">Model Context Protocol</text>
+  <rect x="85" y="150" width="250" height="36" rx="6" fill="#e5e7eb" stroke="#94a3b8"/>
+  <text x="210" y="173" text-anchor="middle" fill="#1f2937">Tool</text>
+  <rect x="85" y="190" width="250" height="36" rx="6" fill="#e5e7eb" stroke="#94a3b8"/>
+  <text x="210" y="213" text-anchor="middle" fill="#1f2937">API</text>
+
+  <line x1="210" y1="236" x2="210" y2="242" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="210,250 205,242 215,242" fill="#475569"/>
+
+  <rect x="100" y="252" width="220" height="72" rx="8" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="210" y="280" text-anchor="middle" font-weight="600" fill="#1f2937">Remote Server</text>
+  <line x1="110" y="290" x2="310" y2="290" stroke="#cbd5e1"/>
+  <text x="210" y="310" text-anchor="middle" fill="#374151">vLLM</text>
+
+  <line x1="210" y1="324" x2="210" y2="332" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="210,340 205,332 215,332" fill="#475569"/>
+
+  <rect x="115" y="346" width="190" height="44" rx="10" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="210" y="373" text-anchor="middle" font-weight="600" fill="#1f2937">Claude</text>
+
+  <line x1="210" y1="390" x2="210" y2="404" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="210,412 205,404 215,404" fill="#475569"/>
+
+  <text x="210" y="432" text-anchor="middle" font-weight="600" fill="#0f172a">Output</text>
+</svg>
