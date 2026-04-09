@@ -5,6 +5,7 @@ class WolverineSettings:
     """Runtime configuration for the Wolverine OpenAI-compatible endpoint."""
 
     base_url: str = "http://localhost:8000/v1"  # vLLM Server Address - http://localhost:8000/v1
+    api_key: str = ""  # vLLM does not require a real key
     model: str = "google/gemma-4-E4B-it"  # Model Name
     # meta-llama/Llama-3.1-8B-Instruct
     # meta-llama/Llama-3.2-3B-Instruct
