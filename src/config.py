@@ -4,10 +4,10 @@ from dataclasses import dataclass
 class WolverineSettings:
     """Runtime configuration for the Wolverine OpenAI-compatible endpoint."""
 
-    base_url: str = "http://localhost:8000/v1"  # vLLM Server Address
+    base_url: str = "SERVER ADDRESS"  # vLLM Server Address - http://localhost:8000/v1
     api_key: str = "EMPTY"
-    model: str = "meta-llama/Llama-3.1-8B-Instruct"  # Model Name
-    # meta-llama/Llama-3.1-8B-Instruct (이거만 돌리면 됨))
+    model: str = "MODEL NAME"  # Model Name
+    # meta-llama/Llama-3.1-8B-Instruct
     # meta-llama/Llama-3.2-3B-Instruct
     # google/gemma-3-4b-it
     # google/gemma-3-12b-it
