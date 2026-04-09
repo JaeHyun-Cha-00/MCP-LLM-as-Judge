@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "Story Evaluator": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--with",
+        "fastmcp",
+        "--with-requirements",
+        "/Users/jaehyuncha/Documents/GitHub/MCP-LLM-as-Judge/requirements.txt",
+        "fastmcp",
+        "run",
+        "/Users/jaehyuncha/Documents/GitHub/MCP-LLM-as-Judge/src/server.py"
+      ]
+    }
+  }
+}
