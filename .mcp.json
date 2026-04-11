@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "Story Evaluator": {
+    "MCP-LLM Judge": {
       "command": "uv",
       "args": [
         "run",
