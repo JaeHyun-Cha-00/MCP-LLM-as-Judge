@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "MCP-LLM Judge": {
+    "MCP-LLM Judge Creative Writing": {
       "command": "uv",
       "args": [
         "run",
@@ -10,7 +10,20 @@
         "/Users/jaehyuncha/Documents/GitHub/MCP-LLM-as-Judge/requirements.txt",
         "fastmcp",
         "run",
-        "/Users/jaehyuncha/Documents/GitHub/MCP-LLM-as-Judge/src/server.py"
+        "/Users/jaehyuncha/Documents/GitHub/MCP-LLM-as-Judge/creative_writing/src/server.py"
+      ]
+    },
+    "MCP-LLM Judge Story Writing Benchmark": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--with",
+        "fastmcp",
+        "--with-requirements",
+        "/Users/jaehyuncha/Documents/GitHub/MCP-LLM-as-Judge/requirements.txt",
+        "fastmcp",
+        "run",
+        "/Users/jaehyuncha/Documents/GitHub/MCP-LLM-as-Judge/story_writing_benchmark/src/server.py"
       ]
     }
   }
