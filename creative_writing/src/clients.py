@@ -49,6 +49,7 @@ class WolverineClient:
                     {"role": "user", "content": user_prompt},
                 ],
                 temperature=self._temperature,
+                # extra_body={"chat_template_kwargs": {"enable_thinking": False}},  # vLLM only
             )
         except Exception as api_error:
             latency_ms = round((time.perf_counter() - started_at) * 1000, 2)

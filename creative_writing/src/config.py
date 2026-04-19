@@ -1,12 +1,21 @@
+import os
 from dataclasses import dataclass
+from dotenv import load_dotenv
+
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../../.env"))
 
 @dataclass(frozen=True)
 class WolverineSettings:
     """Runtime configuration for the Wolverine OpenAI-compatible endpoint."""
 
-    base_url: str = "http://localhost:8000/v1"  # vLLM Server Address - http://localhost:8000/v1
-    api_key: str = ""  # vLLM does not require a real key
-    model: str = "mistralai/Ministral-3-3B-Instruct-2512"  # Model Name
+    # base_url: str = "http://localhost:8000/v1"  # vLLM Server Address
+    # api_key: str = ""  # vLLM does not require a real key
+    # model: str = "nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16"  # Model Name
+    # base_url: str = "https://tritonai-api.ucsd.edu"  # TRITONAI
+    # api_key: str = os.getenv("TRITON_API_KEY", "")
+    base_url: str = "https://openrouter.ai/api/v1"
+    api_key: str = os.getenv("OPENROUTER_API_KEY", "")
+    model: str = "anthropic/claude-sonnet-4-6"
 
     temperature: float = 0.0
 
