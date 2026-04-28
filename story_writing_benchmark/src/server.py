@@ -17,7 +17,7 @@ DATASET_PATH = PROJECT_ROOT / "dataset" / "data.csv"
 RESULTS_DIR = PROJECT_ROOT / "dataset" / "results"
 
 # Reference score columns from lars1234/story_writing_benchmark
-REFERENCE_COLS = [f"q{i}" for i in range(1, 16)] + ["q_translation", "length_score", "overall_score"]
+REFERENCE_COLS = [f"q{i}" for i in range(1, 16)]
 
 _dataset = None
 

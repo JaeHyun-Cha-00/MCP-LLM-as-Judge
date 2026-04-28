@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from clients import WolverineClient
 
 # Categories matching q1-q15 from lars1234/story_writing_benchmark
-# Reference scores use a 1-5 scale; judge scores use 0-20 scale
+# Scores use integer 0-5 scale matching the reference dataset
 EVALUATION_CATEGORIES = [
     "Grammar, Spelling, and Punctuation Quality",       # q1
     "Clarity and Understandability",                    # q2
@@ -25,14 +25,14 @@ EVALUATION_CATEGORIES = [
 
 EVALUATION_SYSTEM_PROMPT = (
     "You are a literary critic. Always respond with JSON containing the key "
-    '"score" (a number from 0.0 to 20.0, can include one decimal place like 15.5).'
+    '"score" (an integer from 0 to 5).'
 )
 
 
 @dataclass
 class EvaluationResult:
     category: str
-    score: float
+    score: int
 
     def to_dict(self) -> dict:
         return {"category": self.category, "score": self.score}
@@ -50,16 +50,16 @@ class StoryEvaluator:
 
         combined_prompt = (
             f"Evaluate the following story across all these categories. "
-            f"For each category, provide a score from 0.0 to 20.0 (can include one decimal place like 15.5). "
+            f"For each category, provide an integer score from 0 to 5. "
             f"Higher scores indicate better quality.\n\n"
             f"Categories:\n{category_list}\n\n"
-            f"Respond with JSON containing a 'scores' object where each key is the category name and the value is the score.\n"
-            f"Example format: {{\"scores\": {{\"Grammar, Spelling, and Punctuation Quality\": 16.5, \"Natural Dialogue\": 14.0, ...}}}}\n\n"
+            f"Respond with JSON containing a 'scores' object where each key is the category name and the value is the integer score.\n"
+            f"Example format: {{\"scores\": {{\"Grammar, Spelling, and Punctuation Quality\": 4, \"Natural Dialogue\": 3, ...}}}}\n\n"
             f"Story:\n{story}"
         )
 
         response = self._client.chat(
-            system_prompt="You are a literary critic. Always respond with valid JSON containing a 'scores' object with category names as keys and numeric scores (0.0-20.0) as values.",
+            system_prompt="You are a literary critic. Always respond with valid JSON containing a 'scores' object with category names as keys and integer scores (0-5) as values.",
             user_prompt=combined_prompt,
         )
 
@@ -86,12 +86,12 @@ class StoryEvaluator:
                             break
 
                 if score is None:
-                    score = 0.0
+                    score = 0
                 else:
                     try:
-                        score = max(0.0, min(20.0, float(score)))
+                        score = max(0, min(5, round(float(score))))
                     except (ValueError, TypeError):
-                        score = 0.0
+                        score = 0
 
                 results[category] = EvaluationResult(category=category, score=score)
 
@@ -106,7 +106,7 @@ class StoryEvaluator:
                 score = _parse_single_score(resp)
                 results[category] = EvaluationResult(
                     category=category,
-                    score=max(0.0, min(20.0, score if score is not None else 0.0)),
+                    score=max(0, min(5, round(float(score)))) if score is not None else 0,
                 )
 
         return results
@@ -121,5 +121,5 @@ def _parse_single_score(response: str) -> float | None:
         return float(payload["score"]) if "score" in payload else None
     except json.JSONDecodeError:
         pass
-    match = re.search(r"(?<!\d)(20(\.\d)?|1[0-9](\.\d)?|[0-9](\.\d)?)(?!\d)", response)
+    match = re.search(r"(?<!\d)[0-5](?!\d)", response)
     return float(match.group(0)) if match else None

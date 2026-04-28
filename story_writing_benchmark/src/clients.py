@@ -39,6 +39,10 @@ class WolverineClient:
         started_at = time.perf_counter()
         timestamp = datetime.now(timezone.utc).isoformat()
 
+        extra_kwargs = {}
+        if "qwen" in self._model.lower():
+            extra_kwargs["extra_body"] = {"chat_template_kwargs": {"enable_thinking": False}}
+
         try:
             completion = self._client.chat.completions.create(
                 model=self._model,
@@ -47,6 +51,7 @@ class WolverineClient:
                     {"role": "user", "content": user_prompt},
                 ],
                 temperature=self._temperature,
+                **extra_kwargs,
             )
         except Exception as api_error:
             latency_ms = round((time.perf_counter() - started_at) * 1000, 2)
