@@ -1,0 +1,30 @@
+{
+  "mcpServers": {
+    "MCP-LLM Judge Creative Writing": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--with",
+        "fastmcp",
+        "--with-requirements",
+        "YOUR_PROJECT_PATH/requirements.txt",
+        "fastmcp",
+        "run",
+        "YOUR_PROJECT_PATH/creative_writing/src/server.py"
+      ]
+    },
+    "MCP-LLM Judge Story Writing Benchmark": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--with",
+        "fastmcp",
+        "--with-requirements",
+        "YOUR_PROJECT_PATH/requirements.txt",
+        "fastmcp",
+        "run",
+        "YOUR_PROJECT_PATH/story_writing_benchmark/src/server.py"
+      ]
+    }
+  }
+}
