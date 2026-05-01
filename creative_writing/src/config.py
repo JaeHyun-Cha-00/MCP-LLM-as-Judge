@@ -9,7 +9,7 @@ class WolverineSettings:
     """Runtime configuration for the Wolverine OpenAI-compatible endpoint."""
 
     # base_url: str = "http://localhost:8000/v1"  # vLLM Server Address
-    # model: str = "nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16"  # Model Name
+    # model: str = ""  # Model Name
     base_url: str = "https://openrouter.ai/api/v1"
     api_key: str = os.getenv("OPENROUTER_API_KEY", "")
     model: str = "anthropic/claude-sonnet-4-6"

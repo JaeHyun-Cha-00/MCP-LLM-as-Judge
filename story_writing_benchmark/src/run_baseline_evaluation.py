@@ -1,11 +1,9 @@
 import argparse
 import os
-import time
 import pandas as pd
 from datetime import datetime
 from pathlib import Path
-from dotenv import load_dotenv
-from clients_anthropic import AnthropicClient
+from clients import WolverineClient
 from evaluation import StoryEvaluator
 
 SCRIPT_DIR = Path(__file__).parent.absolute()
@@ -17,13 +15,11 @@ REFERENCE_COLS = [f"q{i}" for i in range(1, 16)]
 
 
 def main():
-    load_dotenv(SCRIPT_DIR.parent.parent / ".env")
-
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=None, help="Evaluate only the first N entries")
     args = parser.parse_args()
 
-    client = AnthropicClient()
+    client = WolverineClient()
     evaluator = StoryEvaluator(client)
 
     dataset = pd.read_csv(str(DATASET_PATH))
@@ -34,7 +30,7 @@ def main():
 
     os.makedirs(str(RESULTS_DIR), exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_path = str(RESULTS_DIR / f"swb_claude_sonnet_4.6_{timestamp}.csv")
+    output_path = str(RESULTS_DIR / f"swb_baseline_{timestamp}.csv")
 
     results = []
     for i in range(total):
@@ -44,7 +40,6 @@ def main():
         model = str(row.get("model_name", ""))
 
         eval_results = evaluator.evaluate_all_categories(story)
-        time.sleep(1)
 
         result_row = {
             "index": i,
