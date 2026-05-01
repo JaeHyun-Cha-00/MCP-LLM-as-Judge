@@ -1,5 +1,7 @@
 .env
-.claude/settings.local.json
+.mcp.json
+.claude/
 __pycache__
 .DS_Store
 *_executed.ipynb
+figures/
