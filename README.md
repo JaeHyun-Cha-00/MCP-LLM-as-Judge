@@ -1,6 +1,6 @@
 # MOJO: A Mixture of Open-Weight Judges for Orchestrated LLM-as-a-Judge
 
-Code for the NeurIPS 2026 paper: **"MOJO: A Mixture of Open-Weight Judges for Orchestrated LLM-as-a-Judge"**
+Code for the NeurIPS 2026: **"MOJO: A Mixture of Open-Weight Judges for Orchestrated LLM-as-a-Judge"**
 
 ---
 
