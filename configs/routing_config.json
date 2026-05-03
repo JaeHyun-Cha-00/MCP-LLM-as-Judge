@@ -1,0 +1,101 @@
+{
+  "server_name": "llm-judge-router",
+  "version": "1.0",
+  "categories": {
+    "creative_writing": {
+      "description": "Evaluate creative writing stories using EQ-Bench v3 rubrics (0-20 scale).",
+      "endpoint": {
+        "base_url": "https://openrouter.ai/api/v1",
+        "model": "anthropic/claude-sonnet-4-6",
+        "api_key_env": "OPENROUTER_API_KEY",
+        "temperature": 0.0,
+        "max_tokens": 2048
+      },
+      "dataset": {
+        "name": "EQ-Bench Creative Writing v3",
+        "path": "creative_writing/dataset/data.csv",
+        "hf_id": null,
+        "size": 767,
+        "text_column": "story",
+        "rubrics": [
+          {"id": "Adherence to Instructions",          "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Believable Character Actions",       "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Nuanced Characters",                 "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Consistent Voice / Tone of Writing", "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Imagery and Descriptive Quality",    "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Elegant Prose",                      "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Emotionally Engaging",               "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Emotionally Complex",                "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Coherent",                           "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Well-earned Lightness or Darkness",  "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Sentences Flow Naturally",           "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Overall Reader Engagement",          "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Overall Impression",                 "type": "positive", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Meandering",                         "type": "negative", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Weak Dialogue",                      "type": "negative", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Tell-Don't-Show",                    "type": "negative", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Unsurprising or Uncreative",         "type": "negative", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Amateurish",                         "type": "negative", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Purple Prose",                       "type": "negative", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Overwrought",                        "type": "negative", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Incongruent Ending Positivity",      "type": "negative", "scale_min": 0, "scale_max": 20, "scale_type": "float"},
+          {"id": "Unearned Transformations",           "type": "negative", "scale_min": 0, "scale_max": 20, "scale_type": "float"}
+        ]
+      },
+      "evaluation": {
+        "mode": "batch_all_rubrics",
+        "system_prompt": "You are a literary critic. Always respond with valid JSON containing a 'scores' object with category names as keys and numeric scores (0.0-20.0) as values. Remember: positive metrics should have higher scores, negative/penalty metrics should have lower scores.",
+        "user_prompt_template": "Evaluate the following story across all these categories. For each category, provide a score from 0.0 to 20.0 (can include one decimal place like 15.5).\n\nPOSITIVE METRICS (Higher scores are better):\n{positive_rubrics}\n\nNEGATIVE/PENALTY METRICS (Lower scores are better - score how much this problem exists):\n{negative_rubrics}\n\nRespond with JSON: {{\"scores\": {{\"Category Name\": score, ...}}}}\n\nStory:\n{story}",
+        "response_format": "json",
+        "response_key": "scores",
+        "score_type": "float",
+        "clamp_min": 0.0,
+        "clamp_max": 20.0
+      }
+    },
+    "story_writing": {
+      "description": "Evaluate story quality using lars1234/story_writing_benchmark rubrics (0-5 scale).",
+      "endpoint": {
+        "base_url": "https://openrouter.ai/api/v1",
+        "model": "anthropic/claude-sonnet-4-6",
+        "api_key_env": "OPENROUTER_API_KEY",
+        "temperature": 0.0,
+        "max_tokens": 2048
+      },
+      "dataset": {
+        "name": "lars1234/story_writing_benchmark",
+        "path": "story_writing_benchmark/dataset/data.csv",
+        "hf_id": "lars1234/story_writing_benchmark",
+        "size": 3480,
+        "text_column": "story",
+        "rubrics": [
+          {"id": "Grammar, Spelling, and Punctuation Quality",  "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q1"},
+          {"id": "Clarity and Understandability",               "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q2"},
+          {"id": "Logical Connection Between Events and Ideas", "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q3"},
+          {"id": "Scene Construction and Purpose",              "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q4"},
+          {"id": "Internal Consistency",                        "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q5"},
+          {"id": "Character Consistency",                       "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q6"},
+          {"id": "Character Motivation and Actions",            "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q7"},
+          {"id": "Sentence Pattern Variety",                    "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q8"},
+          {"id": "Avoidance of Clichés and Overused Phrases",  "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q9"},
+          {"id": "Natural Dialogue",                            "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q10"},
+          {"id": "Avoidance of Predictable Narrative Tropes",  "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q11"},
+          {"id": "Character Depth and Dimensionality",          "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q12"},
+          {"id": "Realistic Character Interactions",            "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q13"},
+          {"id": "Ability to Hold Reader Interest",             "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q14"},
+          {"id": "Satisfying Plot Resolution",                  "type": "positive", "scale_min": 0, "scale_max": 5, "scale_type": "int", "ref_col": "q15"}
+        ]
+      },
+      "evaluation": {
+        "mode": "batch_all_rubrics",
+        "system_prompt": "You are a literary critic. Always respond with valid JSON containing a 'scores' object with category names as keys and integer scores (0-5) as values.",
+        "user_prompt_template": "Evaluate the following story across all these categories. For each category, provide an integer score from 0 to 5. Higher scores indicate better quality.\n\nCategories:\n{rubrics}\n\nRespond with JSON: {{\"scores\": {{\"Category Name\": score, ...}}}}\n\nStory:\n{story}",
+        "response_format": "json",
+        "response_key": "scores",
+        "score_type": "int",
+        "clamp_min": 0,
+        "clamp_max": 5
+      }
+    }
+  }
+}
