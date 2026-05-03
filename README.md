@@ -8,12 +8,12 @@ Code for the NeurIPS 2026: **"MOJO: A Mixture of Open-Weight Judges for Orchestr
 
 **Problem**: LLM-as-a-judge is powerful for evaluating subjective domains like creative writing, but using proprietary frontier models as judges is limited by high cost and rate limits.
 
-**MOJO** (Mixture-Of-Judges Orchestration) addresses this by routing evaluation tasks to cost-effective open-weight alternatives via the **Model Context Protocol (MCP)**. MOJO statically routes each rubric to the open-weight model with the highest alignment to the frontier judge, with a configurable fallback threshold τ that escalates to the frontier model when no surrogate meets the alignment requirement.
+**MOJO** (Mixture-Of-Judges Orchestration) addresses this by routing evaluation tasks to cost-effective open-weight alternatives via the **Model Context Protocol (MCP)**. MOJO statically routes each rubric to the open-weight model with the highest alignment to the frontier judge, with a configurable fallback threshold Tol that escalates to the frontier model when no surrogate meets the alignment requirement.
 
 MOJO works in three phases:
 1. **Candidate Selection** — Filter open-weight models using MAE/RMSE to remove those with instruction-following failures or output collapse.
 2. **Routing Calibration** — Sample √n data points and run exhaustive evaluation across all (rubric, evaluator) pairs to determine the best surrogate per rubric.
-3. **Evaluation** — Route each rubric to its assigned model via the MCP server; fall back to the frontier model for rubrics where no surrogate clears threshold τ.
+3. **Evaluation** — Route each rubric to its assigned model via the MCP server; fall back to the frontier model for rubrics where no surrogate clears threshold Tol.
 
 ---
 
