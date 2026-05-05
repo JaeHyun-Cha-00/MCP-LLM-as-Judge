@@ -84,6 +84,25 @@ def cmd_calibrate(args: argparse.Namespace) -> None:
     ))
 
 
+def cmd_calibrate_offline(args: argparse.Namespace) -> None:
+    from .calibrate_offline import run
+
+    registry = _load_json_arg(args.model_registry)
+    registry = {k: v for k, v in registry.items() if not k.startswith("_")}
+    eval_prompt = _load_prompt(args.eval_prompt)
+
+    run(
+        results_dir   = args.results_dir,
+        baseline_stem = args.baseline_stem,
+        model_registry = registry,
+        eval_prompt   = eval_prompt,
+        rubrics       = args.rubrics,
+        metric        = args.metric,
+        tolerance     = args.tolerance,
+        output_path   = args.output,
+    )
+
+
 def cmd_generate(args: argparse.Namespace) -> None:
     from .generate import render
     render(args.config, args.output)
@@ -149,6 +168,46 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Output config path (default: mojo_config.json).",
     )
     cal.set_defaults(func=cmd_calibrate)
+
+    # -- calibrate-offline ----------------------------------------------------
+    off = sub.add_parser(
+        "calibrate-offline",
+        help="Calibrate from pre-computed result CSVs instead of calling models live.",
+    )
+    off.add_argument(
+        "--results-dir", required=True, metavar="PATH",
+        help="Directory containing {stem}_result.csv files.",
+    )
+    off.add_argument(
+        "--baseline-stem", required=True, metavar="STEM",
+        help="result_stem of the baseline model (e.g. claude_sonnet_4.6).",
+    )
+    off.add_argument(
+        "--model-registry", required=True, metavar="JSON",
+        help="Model registry: JSON dict or path to .json file mapping alias → endpoint + result_stem.",
+    )
+    off.add_argument(
+        "--eval-prompt", required=True, metavar="TEXT",
+        help="System prompt embedded in the generated server. Prefix with @ to read from file.",
+    )
+    off.add_argument(
+        "--rubrics", required=True, nargs="+", metavar="RUBRIC",
+        help="Rubric names (must match {rubric}_score columns in the result CSVs).",
+    )
+    off.add_argument(
+        "--metric", required=True,
+        choices=["mae", "rmse", "spearman", "kendall"],
+        help="Alignment metric.",
+    )
+    off.add_argument(
+        "--tolerance", type=float, default=None, metavar="FLOAT",
+        help="Fallback threshold (same semantics as calibrate).",
+    )
+    off.add_argument(
+        "--output", default="mojo_config.json", metavar="PATH",
+        help="Output config path (default: mojo_config.json).",
+    )
+    off.set_defaults(func=cmd_calibrate_offline)
 
     # -- generate -------------------------------------------------------------
     gen = sub.add_parser(
