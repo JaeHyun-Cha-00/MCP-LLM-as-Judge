@@ -22,7 +22,7 @@
 # Tunable knobs
 # ------------------------------------------------------------------------------
 METRIC_CW ?= mae
-METRIC_SW ?= spearman
+METRIC_SW ?= mae
 TOL_CW    ?= 20.0
 TOL_SW    ?= 5.0
 
