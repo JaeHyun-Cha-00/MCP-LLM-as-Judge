@@ -154,8 +154,8 @@ def main():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--output-dir", type=Path,
-                   default=PROJECT_ROOT / "scripts" / "figures",
-                   help="Where to save PDF/PNG files (default: scripts/figures)")
+                   default=PROJECT_ROOT / "figures",
+                   help="Where to save PDF/PNG files (default: figures/)")
     p.add_argument("--metrics", nargs="+", default=["mae", "rmse", "rho", "kendall"],
                    choices=["mae", "rmse", "rho", "kendall"],
                    help="Which metric(s) to plot (default: all four)")
