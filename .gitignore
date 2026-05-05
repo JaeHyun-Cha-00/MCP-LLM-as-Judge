@@ -1,6 +1,14 @@
+.vscode/
 .env
 .mcp.json
 .claude/
-__pycache__
+__pycache__/
 .DS_Store
 *_executed.ipynb
+
+# Auto generated files
+creative_writing_mojo_config.json
+story_writing_mojo_config.json
+creative_writing_mojo_server.py
+story_writing_mojo_server.py
+figures/
