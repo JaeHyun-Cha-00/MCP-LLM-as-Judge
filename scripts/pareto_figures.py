@@ -668,7 +668,7 @@ def main():
             fig = make_figure(cfg, metric=metric, k_values=args.k_values,
                               alpha=args.alpha, seed=args.seed,
                               tolerances=tolerances, debug=args.debug)
-            base = args.output_dir / f"pareto_{cfg.name}_{metric}"
+            base = args.output_dir / f"script_pareto_{cfg.name}_{metric}"
             fig.savefig(f"{base}.pdf", bbox_inches="tight")
             fig.savefig(f"{base}.png", bbox_inches="tight", dpi=200)
             plt.close(fig)

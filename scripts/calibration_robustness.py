@@ -188,7 +188,7 @@ def main():
             fig = make_figure(cfg, metric, cal_results, evaluator_names,
                               args.k_values, args.n_seeds,
                               cat_value=cat_value, n_per_cat=n_per_cat)
-            base = args.output_dir / f"calibration_robustness_{cfg.name}_{metric}"
+            base = args.output_dir / f"script_calibration_robustness_{cfg.name}_{metric}"
             fig.savefig(f"{base}.pdf", bbox_inches="tight")
             fig.savefig(f"{base}.png", bbox_inches="tight", dpi=200)
             plt.close(fig)
