@@ -179,6 +179,39 @@ $(SERVER_SW): $(CONFIG_SW)
 		--output  $@
 
 # ==============================================================================
+# Notebooks (executed outputs only, no metadata)
+# ==============================================================================
+
+.PHONY: notebooks-cw notebooks-sw notebooks
+
+notebooks-cw:
+	jupyter nbconvert --execute --inplace creative_writing/notebooks/*.ipynb
+	python scripts/clean_notebook_metadata.py creative_writing/notebooks/*.ipynb
+
+notebooks-sw:
+	jupyter nbconvert --execute --inplace story_writing_benchmark/notebooks/*.ipynb
+	python scripts/clean_notebook_metadata.py story_writing_benchmark/notebooks/*.ipynb
+
+notebooks: notebooks-cw notebooks-sw
+
+# ==============================================================================
+# Figure generation (reproduces paper figures from pre-computed CSVs)
+# ==============================================================================
+
+.PHONY: figures figures-pareto figures-robustness figures-sweep
+
+figures: figures-pareto figures-robustness figures-sweep
+
+figures-pareto:
+	python scripts/pareto_figures.py
+
+figures-robustness:
+	python scripts/calibration_robustness.py
+
+figures-sweep:
+	python scripts/threshold_sweep.py
+
+# ==============================================================================
 # Housekeeping
 # ==============================================================================
 
